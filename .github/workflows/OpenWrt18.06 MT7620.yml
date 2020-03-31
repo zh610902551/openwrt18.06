@@ -162,7 +162,7 @@ jobs:
             CONFIG_PACKAGE_luci-app-passwall=y 
             CONFIG_PACKAGE_luci-app-vssr=y
           # CONFIG_PACKAGE_luci-app-ssr-plus-Jo=y
-            CONFIG_PACKAGE_luci-app-ssr-plus-lean=y
+          # CONFIG_PACKAGE_luci-app-ssr-plus-lean=y
            EOF
           # LuCI主题:
            cat >> .config <<EOF
