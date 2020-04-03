@@ -16,6 +16,10 @@ on:
   #   - cron: 0 20 * * *
   # release:
   #   types: [published]
+env:
+  SSH_ACTIONS: true
+
+
 
 jobs:
 
@@ -63,7 +67,6 @@ jobs:
            git clone  https://github.com/Sweet-Fairy/luci-app-ssr-plus-Jo
            git clone  https://github.com/Sweet-Fairy/openwrt-package
            git clone -b lean  https://github.com/Sweet-Fairy/luci-app-ssr-plus-Jo package/luci-app-ssr-plus-lean    
-           git clone  https://github.com/Leo-Jo/luci-app-vssr
            git clone  https://github.com/lisaac/luci-lib-docker.git package/luci-lib-docker
            git clone  https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman  
            # ==========ssr-plus-Jo   ssr-plus-lean不要一起编译  +vssr   ==========
@@ -74,6 +77,12 @@ jobs:
         run: |
           ./scripts/feeds update -a
           ./scripts/feeds install -a
+          
+          
+      - name: SSH connection to Actions
+        uses: P3TERX/debugger-action@master
+        if: env.SSH_ACTIONS == 'true'
+
       - name: Generate configuration file
         run: |
           rm -f ./.config*
@@ -107,11 +116,10 @@ jobs:
           # 无论你想要对固件进行怎样的定制, 都需要且只需要修改 EOF 回环内的内容.
           # 
           # 编译x64固件:
-           cat >> .config <<EOF
-           CONFIG_TARGET_ramips=y
-           CONFIG_TARGET_ramips_mt7620=y
-           CONFIG_TARGET_ramips_mt7620_Default=y
-           EOF
+           
+
+
+           
           # 固件压缩:
           #  cat >> .config <<EOF
           #  CONFIG_TARGET_IMAGES_GZIP=y
